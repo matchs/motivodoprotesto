@@ -1,0 +1,10 @@
+{
+    "mongo":{
+        "host":"",
+        "user":"",
+        "pass":"",
+        "db":"",
+        "port":"",
+        "string":"mongodb://user:pass@host:port/db"
+    }
+}

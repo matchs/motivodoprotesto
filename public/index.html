@@ -8,12 +8,14 @@
 <head>
     <title>Motivo do #ProtestoBR</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="description" content=""/>
-    <meta name="keywords" content=""/>
+    <meta name="description" content="Compartilhe aqui e discuta sobre"/>
+    <meta name="keywords"
+          content="#protestobr, protesto, passe livre, corrupção, manifestações, pec37, #mudabrasil, #changebrazil, #vemprarua, vem pra rua"/>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,600,700" rel="stylesheet"/>
     <script src="js/jquery.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/skel.min.js"></script>
+    <script src="js/jquery.autocomplete.js"></script>
     <noscript>
         <link rel="stylesheet" href="css/skel-noscript.css"/>
         <link rel="stylesheet" href="css/style.css"/>
@@ -26,6 +28,57 @@
     <link rel="stylesheet" href="css/ie8.css"/><![endif]-->
     <!--[if lte IE 7]>
     <link rel="stylesheet" href="css/ie7.css"/><![endif]-->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var host = 'motivodoprotesto.localhost.com.br'
+
+            function updateList() {
+                $.ajax({
+                    type: 'get',
+                    url: 'http://'+host+':8088/rank',
+                    success: function (resp) {
+
+                        var $lista = $("#lista");
+
+                        $lista.empty();
+
+                        for (var i in resp) {
+                            $lista.append(
+                                    $('<p/>').html(resp[i].desc).append(
+                                            $('<strong/>').addClass('counter').html(resp[i].count + ' pessoas')
+                                    )
+                            );
+                        }
+                    }
+                });
+            }
+
+            updateList();
+
+            $("#desc").autocomplete({
+                serviceUrl:'http://'+host+':8088/protesto'
+            });
+
+            $('#btSend').click(function () {
+                var data = $("#form").serialize();
+
+                $.ajax({
+                    type: 'post',
+                    url: 'http://'+host+':8088/protesto',
+                    data: data,
+                    crossDomain: true,
+                    success: function (resp) {
+                        updateList();
+                        alert('Sua reivindicação se somou a de outros brasileiros!');
+
+                    }
+                });
+
+            });
+        });
+    </script>
+
 </head>
 <body>
 
@@ -54,7 +107,7 @@
                     fazendo! Vamos mostrar pra mídia que sabemos porque estamos lutando!</p>
 
                 <p>Já tivemos uma grande vitória! Mas <strong>não vamos nos dar por satisfeitos!</strong></p>
-                <a href="#contact" class="button button-big">100 pessoas já se manifestaram!</a>
+                <a href="#contact" class="button button-big">Manifeste-se você também!</a>
             </div>
         </div>
     </article>
@@ -70,17 +123,17 @@
         <div>
             <div class="row">
                 <div class="12u">
-                    <form>
+                    <form id="form">
                         <div>
                             <div class="row half">
                                 <div class="12u">
-                                    <input type="text" name="subject" id="subject" placeholder="Meu protesto é..."/>
+                                    <input type="text" name="desc" id="desc" placeholder="Meu protesto é..."/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="12u">
-                                    <a href="javascript:void(0)" class="button form-button-submit">Pode Registrar!</a>
+                                    <a id="btSend" href="#portfolio" class="button form-button-submit">Pode Registrar!</a>
                                     <!--<a href="#" class="button button-alt form-button-reset">Clear Form</a>-->
                                 </div>
                             </div>
@@ -88,75 +141,21 @@
                     </form>
                 </div>
             </div>
-            <div class="row row-special">
+           <!--<div class="row row-special">
                 <div class="12u">
                     <h3>Divulgue! Compartilhe! Não deixe essa causa esfriar!</h3>
                     <ul class="social">
-                        <li class="twitter"><a href="http://twitter.com/n33co"
-                                               class="icon icon-twitter"><span>Twitter</span></a></li>
+                        <li class="twitter"><a href="http://twitter.com/n33co" class="icon icon-twitter"><span>Twitter</span></a></li>
                         <li class="facebook"><a href="#" class="icon icon-facebook"><span>Facebook</span></a></li>
-                        <!--<li class="dribbble"><a href="http://dribbble.com/n33" class="icon icon-dribbble"><span>Dribbble</span></a></li>-->
                         <li class="linkedin"><a href="#" class="icon icon-linkedin"><span>LinkedIn</span></a></li>
-                        <!--<li class="tumblr"><a href="#" class="icon icon-tumblr"><span>Tumblr</span></a></li>-->
                         <li class="googleplus"><a href="#" class="icon icon-google-plus"><span>Google+</span></a></li>
-                        <!--<li class="github"><a href="http://github.com/n33" class="icon icon-github"><span>Github</span></a></li>-->
-                        <!--
-                        <li class="rss"><a href="#" class="icon icon-rss"><span>RSS</span></a></li>
-                        <li class="instagram"><a href="#" class="icon icon-instagram"><span>Instagram</span></a></li>
-                        <li class="foursquare"><a href="#" class="icon icon-foursquare"><span>Foursquare</span></a></li>
-                        <li class="skype"><a href="#" class="icon icon-skype"><span>Skype</span></a></li>
-                        <li class="soundcloud"><a href="#" class="icon icon-soundcloud"><span>Soundcloud</span></a></li>
-                        <li class="youtube"><a href="#" class="icon icon-youtube"><span>YouTube</span></a></li>
-                        <li class="blogger"><a href="#" class="icon icon-blogger"><span>Blogger</span></a></li>
-                        <li class="flickr"><a href="#" class="icon icon-flickr"><span>Flickr</span></a></li>
-                        <li class="vimeo"><a href="#" class="icon icon-vimeo"><span>Vimeo</span></a></li>
-                        -->
                     </ul>
                 </div>
-            </div>
+            </div>-->
         </div>
 
     </article>
 </div>
-
-<!-- Work -->
-<!--<div class="wrapper wrapper-style2">
-    <article id="work">
-        <header>
-            <h2>I design and build amazing things.</h2>
-            <span>Odio turpis amet sed consequat eget posuere consequat.</span>
-        </header>
-        <div class="container">
-            <div class="row">
-                <div class="4u">
-                    <section class="box box-style1">
-                        <span class="icon featured-icon icon-comments-alt"></span>
-                        <h3>Consequat lorem</h3>
-                        <p>Ornare nulla proin odio consequat sapien vestibulum ipsum primis sed amet consequat lorem dolore.</p>
-                    </section>
-                </div>
-                <div class="4u">
-                    <section class="box box-style1">
-                        <span class="icon featured-icon icon-file-alt"></span>
-                        <h3>Lorem dolor tempus</h3>
-                        <p>Ornare nulla proin odio consequat sapien vestibulum ipsum primis sed amet consequat lorem dolore.</p>
-                    </section>
-                </div>
-                <div class="4u">
-                    <section class="box box-style1">
-                        <span class="icon featured-icon icon-thumbs-up"></span>
-                        <h3>Feugiat posuere</h3>
-                        <p>Ornare nulla proin odio consequat sapien vestibulum ipsum primis sed amet consequat lorem dolore.</p>
-                    </section>
-                </div>
-            </div>
-        </div>
-        <footer>
-            <p>Lorem ipsum dolor sit sapien vestibulum ipsum primis?</p>
-            <a href="#portfolio" class="button button-big">See some of my recent work</a>
-        </footer>
-    </article>
-</div>-->
 
 <!-- Portfolio -->
 <div class="wrapper wrapper-style3">
@@ -172,49 +171,23 @@
             </div>
             <div class="row">
                 <div class="12u">
-                    <article class="box box-style2">
-                        <p>Ornare nulla proin odio consequat. <strong class="counter">900 pessoas</strong></p>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <strong class="counter">478 pessoas</strong></p>
-
-                        <p>Accusamus accusantium atque delectus dolorem exercitationem, reiciendis voluptate?<strong class="counter">327 pessoas</strong></p>
-
-                        <p>Cupiditate deserunt fugit laboriosam maiores provident sint tempore.</p>
-
-                        <p>Eaque facilis illum laboriosam nesciunt quibusdam sit soluta!</p>
-
-                        <p>Commodi fuga, ipsa ipsum laboriosam laudantium quas sit?</p>
+                    <article id="lista" class="box box-style2">
 
                     </article>
                 </div>
 
             </div>
-            <div class="row row-special">
+            <!--<div class="row row-special">
                 <div class="12u">
                     <h3>Divulgue! Compartilhe! Não deixe essa causa esfriar!</h3>
                     <ul class="social">
-                        <li class="twitter"><a href="http://twitter.com/n33co"
-                                               class="icon icon-twitter"><span>Twitter</span></a></li>
+                        <li class="twitter"><a href="http://twitter.com/n33co" class="icon icon-twitter"><span>Twitter</span></a></li>
                         <li class="facebook"><a href="#" class="icon icon-facebook"><span>Facebook</span></a></li>
-                        <!--<li class="dribbble"><a href="http://dribbble.com/n33" class="icon icon-dribbble"><span>Dribbble</span></a></li>-->
                         <li class="linkedin"><a href="#" class="icon icon-linkedin"><span>LinkedIn</span></a></li>
-                        <!--<li class="tumblr"><a href="#" class="icon icon-tumblr"><span>Tumblr</span></a></li>-->
                         <li class="googleplus"><a href="#" class="icon icon-google-plus"><span>Google+</span></a></li>
-                        <!--<li class="github"><a href="http://github.com/n33" class="icon icon-github"><span>Github</span></a></li>-->
-                        <!--
-                        <li class="rss"><a href="#" class="icon icon-rss"><span>RSS</span></a></li>
-                        <li class="instagram"><a href="#" class="icon icon-instagram"><span>Instagram</span></a></li>
-                        <li class="foursquare"><a href="#" class="icon icon-foursquare"><span>Foursquare</span></a></li>
-                        <li class="skype"><a href="#" class="icon icon-skype"><span>Skype</span></a></li>
-                        <li class="soundcloud"><a href="#" class="icon icon-soundcloud"><span>Soundcloud</span></a></li>
-                        <li class="youtube"><a href="#" class="icon icon-youtube"><span>YouTube</span></a></li>
-                        <li class="blogger"><a href="#" class="icon icon-blogger"><span>Blogger</span></a></li>
-                        <li class="flickr"><a href="#" class="icon icon-flickr"><span>Flickr</span></a></li>
-                        <li class="vimeo"><a href="#" class="icon icon-vimeo"><span>Vimeo</span></a></li>
-                        -->
                     </ul>
                 </div>
-            </div>
+            </div>-->
         </div>
         <footer>
             <p id="copyright">
