@@ -23,7 +23,7 @@
 		padding: 5em 0 5em 0;
 		text-align: center;
 	}
-	
+
 		.wrapper-first
 		{
 			padding-top: 9em;
@@ -49,3 +49,15 @@
 			height: 19.5em;
 			margin: 0;
 		}
+
+
+    .image img {
+        display: none;
+    }
+
+    .image {
+        background-image: url(../images/me.jpg);
+        background-size: 520px;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }

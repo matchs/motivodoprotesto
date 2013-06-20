@@ -201,3 +201,14 @@
 	{
 		font-size: 1em;
 	}
+
+    .image img {
+        display: none;
+    }
+
+    .image {
+        background-image: url(../images/me.jpg);
+        background-size: 520px;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }

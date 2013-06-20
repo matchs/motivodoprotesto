@@ -128,7 +128,16 @@
 			top: 20px;
 			margin: -50px 0 50px -40px;
 			width: auto;
+            background-image: none;
 		}
+
+        .box .image {
+            background-image: none;
+        }
+
+        .box .image img {
+            display: block;
+        }
 
 /*********************************************************************************/
 /* Wrappers                                                                      */
